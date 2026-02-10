@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+
+@layer components {
+  .loader {
+    width: 130px;
+    height: 14px;
+    display: grid;
+    box-shadow: 0 3px 0 #2563eb;
+  }
+  .loader:before, .loader:after {
+    content: "";
+    grid-area: 1/1;
+    background: radial-gradient(circle closest-side, var(--c, #2563eb) 92%, #0000) 0 0 / calc(100%/5) 100%;
+    animation: l4 1s infinite linear;
+  }
+  .loader:after {
+    --c: #1e40af;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 0 0 #2563eb;
+    clip-path: inset(-2px calc(50% - 12px));
+  }
+  @keyframes l4 { 100% { background-position: calc(100%/4) 0; } }
+  
+  @keyframes logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-logo-float { animation: logo-float 2.4s ease-in-out infinite; }
+}
