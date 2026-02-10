@@ -3,40 +3,94 @@
 @tailwind utilities;
 
 :root {
+  /* Slate & Indigo Professional Palette */
   --foreground-rgb: 15, 23, 42;
   --background-start-rgb: 248, 250, 252;
   --background-end-rgb: 255, 255, 255;
+  --primary-indigo: 79, 70, 229;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+@layer base {
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+    @apply antialiased selection:bg-indigo-100 selection:text-indigo-900;
+  }
 }
 
 @layer components {
+  /* Ultra-Smooth Professional Loader */
   .loader {
     width: 130px;
     height: 14px;
     display: grid;
     box-shadow: 0 3px 0 #2563eb;
   }
+  
   .loader:before, .loader:after {
     content: "";
     grid-area: 1/1;
     background: radial-gradient(circle closest-side, var(--c, #2563eb) 92%, #0000) 0 0 / calc(100%/5) 100%;
     animation: l4 1s infinite linear;
   }
+  
   .loader:after {
     --c: #1e40af;
     background-color: #ffffff;
     box-shadow: 0 -2px 0 0 #2563eb;
     clip-path: inset(-2px calc(50% - 12px));
   }
-  @keyframes l4 { 100% { background-position: calc(100%/4) 0; } }
   
+  @keyframes l4 { 100% { background-position: calc(100%/4) 0; } }
+
+  /* Interactive Logo Animation */
   @keyframes logo-float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
   }
-  .animate-logo-float { animation: logo-float 2.4s ease-in-out infinite; }
+  .animate-logo-float { 
+    animation: logo-float 2.4s ease-in-out infinite;
+  }
+
+  /* Glassmorphism Classes for Cards */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl shadow-slate-200/50;
+  }
+
+  /* Professional Typography for Headers */
+  .heading-xl {
+    @apply text-4xl md:text-6xl font-black tracking-tight text-slate-900;
+  }
+
+  /* Custom Hover Effects for Internship Cards */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-100/50;
+  }
+}
+
+/* Utilities for scrollbar and clean transitions */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-slate-50;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-indigo-200 rounded-full hover:bg-indigo-300 transition-colors;
+  }
 }
