@@ -1,20 +1,32 @@
 "use client";
 
-import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { use } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  MapPin, Clock, Award, Briefcase, 
-  CheckCircle2, ArrowLeft, Zap, ShieldCheck 
+  MapPin, 
+  Clock, 
+  Award, 
+  Briefcase, 
+  CheckCircle2, 
+  ArrowLeft, 
+  Zap, 
+  ShieldCheck,
+  ArrowRight 
 } from 'lucide-react';
 import { MOCK_INTERNSHIPS } from '@/constants';
 
-export default function InternshipDetailPage() {
-  const params = useParams();
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default function InternshipDetailPage({ params }: PageProps) {
+  // Next.js 15 fix: unwrap the params promise using React.use()
+  const { id } = use(params);
   const router = useRouter();
   
-  // Find the internship based on the dynamic ID in the URL
-  const internship = MOCK_INTERNSHIPS.find(i => i.id === params.id);
+  // Find the internship based on the dynamic ID from the URL
+  const internship = MOCK_INTERNSHIPS.find(i => i.id === id);
 
   if (!internship) {
     return (
