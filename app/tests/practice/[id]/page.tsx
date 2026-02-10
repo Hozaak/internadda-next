@@ -1,17 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { useState, use } from 'react';
+import { useRouter } from 'next/navigation';
 import { CATEGORY_QUESTIONS } from '@/constants';
-import { ArrowLeft, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, XCircle, Award } from 'lucide-react';
 
-export default function PracticeTestPage() {
-  const params = useParams();
+// Define the interface for Next.js 15 dynamic params
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default function PracticeTestPage({ params }: PageProps) {
+  // Next.js 15 fix: unwrap the params promise using React.use()
+  const { id } = use(params);
   const router = useRouter();
   
   // Format the ID back to the constant key (e.g., 'python' -> 'Python')
   const categoryKey = Object.keys(CATEGORY_QUESTIONS).find(
-    key => key.toLowerCase().replace(' ', '-') === params.id
+    key => key.toLowerCase().replace(' ', '-') === id
   ) || "Web Development";
 
   const questions = CATEGORY_QUESTIONS[categoryKey];
